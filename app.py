@@ -12,7 +12,7 @@ app.layout = ddk.App(
         ddk.Header(
             [
                 ddk.Logo(src=app.get_asset_url("logo.png")),
-                ddk.Title("Dash Enterprise Amazing Sample Application!!"),
+                ddk.Title("Dash Enterprise Super Sample Application!!"),
             ]
         ),
         ddk.Row(
