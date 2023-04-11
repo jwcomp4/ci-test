@@ -53,13 +53,13 @@ jobs:
           git remote -v
           git fetch --unshallow origin # prevent shallow update not allowed error
           mkdir ~/.ssh
-          echo $SSH_PRIVATE_KEY | base64 -d > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa # permissioning
+          echo $SSH_PRIVATE_KEY | base64 -d > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519 # permissioning
           eval "$(ssh-agent -s)" # setting ssh environment variable
           echo '-----> Adding keys to ssh-agent'
-          ssh-add ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_ed25519
           echo $SSH_CONFIG | base64 -d > ~/.ssh/config
           echo '-----> Adding git remote'
           git config remote.plotly.url >&- || git remote add plotly dokku@dash-customer-success.plotly.host:john-ci-test
           echo '-----> Deploying app'
-          git push plotly HEAD:master
+          GIT_SSH_COMMAND='ssh -vvv' git push plotly HEAD:master -f
